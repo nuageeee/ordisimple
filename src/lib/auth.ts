@@ -1,5 +1,6 @@
 import { betterAuth } from "better-auth";
 import { nextCookies } from "better-auth/next-js";
+import { admin } from "better-auth/plugins";
 import { createPool } from "mysql2/promise";
 
 export const auth = betterAuth({
@@ -15,7 +16,10 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true
     },
-    plugins: [nextCookies()],
+    plugins: [
+        nextCookies(),
+        admin(),
+    ],
     user: {
         deleteUser: {
             enabled: true
