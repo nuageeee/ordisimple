@@ -38,6 +38,7 @@ export default function SignupPage() {
 
         } catch (error: any) {
             setMessage(`Erreur: ${error.message}`);
+            console.log(error.message)
         } finally {
             setLoading(false);
         }

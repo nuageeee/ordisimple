@@ -26,7 +26,7 @@ export function Header({ session }: {session : any}) {
                         <button onClick={handleLogout}>Déconnexion</button>
                     </div>
                 ) : (
-                    <a href="/login">Connexion</a>
+                    <a href="/action/login">Connexion</a>
                 )
             }
         </header>

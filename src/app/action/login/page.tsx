@@ -35,6 +35,7 @@ export default function SigninPage() {
             setFormData({ email: '', password: '' })
         } catch (error: any) {
             setMessage(`Erreur: ${error.message}`)
+            console.log(error.message)
         } finally {
             setLoading(false)
         }
@@ -101,9 +102,9 @@ export default function SigninPage() {
             {/* Lien vers connexion */}
             <div style={{ textAlign: 'center', marginTop: '20px' }}>
                 <p>
-                    Déjà un compte ?
-                    <a href="/login" style={{ color: '#007cba', marginLeft: '5px' }}>
-                        Se connecter
+                    Aucun compte ?
+                    <a href="/action/signup" style={{ color: '#007cba', marginLeft: '5px' }}>
+                        Créez en un
                     </a>
                 </p>
             </div>
