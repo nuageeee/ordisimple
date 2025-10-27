@@ -1,11 +1,17 @@
 import { createAccessControl } from "better-auth/plugins/access";
 
 const statement = {
-    project: ["create", "share", "update", "delete"]
-}
+    ticket: ["create", "update", "delete"],
+    user: ["ban", "edit", "create"]
+} as const;
 
-const ac = createAccessControl(statement);
+export const ac = createAccessControl(statement);
 
 export const user = ac.newRole({
-    project: ["create"]
+    ticket: ["create", "delete"]
+})
+
+export const admin = ac.newRole({
+    ticket: ["create", "update", "delete"],
+    user: ["ban", "edit", "create"]
 })

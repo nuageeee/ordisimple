@@ -3,6 +3,7 @@
 import { authClient } from "@/lib/auth-client"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import Image from "next/image"
 
 export function Header({ session }: {session : any}) {
     const router = useRouter()
@@ -17,7 +18,16 @@ export function Header({ session }: {session : any}) {
 
     return (
         <header className="p-4 border-b flex justify-between items-center">
-            <h1>Mon App</h1>
+            <div className="flex items-center gap-3">
+                <Image 
+                    src="/logo.png" 
+                    alt="Logo" 
+                    width={40} 
+                    height={40}
+                    className="object-contain"
+                />
+                <h1>Mon App</h1>
+            </div>
 
             {
                 session ? (
