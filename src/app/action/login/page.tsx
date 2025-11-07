@@ -27,8 +27,7 @@ export default function SigninPage() {
             await authClient.signIn.email({
                 email: formData.email,
                 password: formData.password,
-                rememberMe: true,
-                callbackURL: "/dashboard"
+                rememberMe: true
             })
 
             setMessage('Connexion réussie !')
@@ -41,74 +40,19 @@ export default function SigninPage() {
         }
     }
     return (
-        <div style={{ padding: '20px', maxWidth: '400px', margin: '0 auto' }}>
-            <h1>Connexion</h1>
+            <div className="min-h-screen flex justify-center bg-base-200 items-center" style={{ maxHeight: '400px', maxWidth: '20px'}}>
+                <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-80 border p-4">
+                    <legend className="fieldset-legend">Login</legend>
 
-            {message && (
-                <div style={{
-                    padding: '10px',
-                    marginBottom: '20px',
-                    backgroundColor: message.includes('Erreur') ? '#fee' : '#efe',
-                    border: `1px solid ${message.includes('Erreur') ? '#fcc' : '#cfc'}`,
-                    borderRadius: '4px'
-                }}>
-                    {message}
-                </div>
-            )}
+                    <label className="label">Email</label>
+                    <input type="email" className="input" placeholder="Email" />
 
-            <div style={{ marginBottom: '15px' }}>
-                <label>Email:</label>
-                <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    style={{ width: '100%', padding: '8px', marginTop: '5px' }}
-                    required
-                />
+                    <label className="label">Password</label>
+                    <input type="password" className="input" placeholder="Password" />
+
+                    <button className="btn btn-neutral mt-4">Login</button>
+                </fieldset>
             </div>
-
-            <div style={{ marginBottom: '20px' }}>
-                <label>Mot de passe:</label>
-                <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    style={{ width: '100%', padding: '8px', marginTop: '5px' }}
-                    required
-                />
-            </div>
-
-            <button
-                onClick={handleSignin}
-                disabled={loading}
-                style={{
-                    width: '100%',
-                    padding: '10px',
-                    marginBottom: '10px',
-                    backgroundColor: loading ? '#ccc' : '#007cba',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '4px',
-                    cursor: loading ? 'not-allowed' : 'pointer'
-                }}
-            >
-                {loading ? 'Connexion...' : 'Se connecter'}
-            </button>
-
-
-
-            {/* Lien vers connexion */}
-            <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                <p>
-                    Aucun compte ?
-                    <a href="/action/signup" style={{ color: '#007cba', marginLeft: '5px' }}>
-                        Créez en un
-                    </a>
-                </p>
-            </div>
-        </div>
     )
 
 }

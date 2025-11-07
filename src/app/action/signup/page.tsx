@@ -2,130 +2,108 @@
 
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
+import FloatingBubbles from "@/components/FloatingBubbles";
+import * as icon from "lucide-react";
 
 export default function SignupPage() {
+
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
+        step1: {
+            name: '',
+            email: '',
+            password: '',
+        },
+        step2: {
+            phone: '',
+            address: '',
+            society: false,
+        },
+        step3: {
+            terms: false,
+            remember: false
+        }
     })
-    const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState('');
+    const [currentStep, setCurrentStep] = useState(1);
 
-    const handleInputChange = (e: any) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }))
-    }
-
-    const handleSignup = async () => {
-        setLoading(true);
-        setMessage('');
-
-        try {
-            await authClient.signUp.email({
-                name: formData.name,
-                email: formData.email,
-                password: formData.password,
-                callbackURL: "/dashboard"
-            });
-
-
-            setMessage('Inscription réussie !');
-            setFormData({ name: '', email: '', password: '' });
-
-        } catch (error: any) {
-            setMessage(`Erreur: ${error.message}`);
-            console.log(error.message)
-        } finally {
-            setLoading(false);
+    const handleNext = () => {
+        if (currentStep < 3) {
+            setCurrentStep(prev => prev + 1)
         }
     }
 
+    const handlePrevious = () => {
+        if (currentStep > 1) {
+            setCurrentStep(prev => prev - 1)
+        }
+    }
+
+
+
     return (
-        <div style={{ padding: '20px', maxWidth: '400px', margin: '0 auto' }}>
-            <h1>Inscription</h1>
-
-            {/* Message de statut */}
-            {message && (
-                <div style={{
-                    padding: '10px',
-                    marginBottom: '20px',
-                    backgroundColor: message.includes('Erreur') ? '#fee' : '#efe',
-                    border: `1px solid ${message.includes('Erreur') ? '#fcc' : '#cfc'}`,
-                    borderRadius: '4px'
-                }}>
-                    {message}
-                </div>
-            )}
-
-            {/* Champs du formulaire */}
-            <div style={{ marginBottom: '15px' }}>
-                <label>Nom:</label>
-                <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    style={{ width: '100%', padding: '8px', marginTop: '5px' }}
-                    required
-                />
+        <div className="min-h-screen flex justify-center items-center relative overflow-hidden">
+            <div className="absolute inset-0 bg-linear-to-br from-base-200 to-base-300" />
+            <FloatingBubbles count={20} />
+            <div className="card bg-base-300/80 backdrop-blur-sm rounded-box grid h-55 w-8 grow place-items-center mx-8 shadow-sm rounded-xl">
+                <ul className="steps steps-vertical">
+                    <li className="step step-primary">Enregistrement</li>
+                    <li className="step">Informations supplémentaire</li>
+                    <li className="step">Finalisation</li>
+                </ul></div>
+            <div className="h-100 flex items-center">
+                <div className="divider divider-horizontal mx-4"></div>
             </div>
+            <div className="card bg-base-300/80 backdrop-blur-sm rounded-box grid h-80 grow place-items-center mx-8 w-10 shadow-sm rounded-xl">
+                <fieldset className="fieldset ">
+                    <legend className="fieldset-legend">Création de compte</legend>
 
-            <div style={{ marginBottom: '15px' }}>
-                <label>Email:</label>
-                <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    style={{ width: '100%', padding: '8px', marginTop: '5px' }}
-                    required
-                />
-            </div>
+                    <div className="grid grid-cols-2 gap-5">
+                        <div>
+                            <label className="label">Nom</label>
+                            <input type="text" placeholder="Nom" className="input" />
+                        </div>
 
-            <div style={{ marginBottom: '20px' }}>
-                <label>Mot de passe:</label>
-                <input
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={handleInputChange}
-                    style={{ width: '100%', padding: '8px', marginTop: '5px' }}
-                    required
-                />
-            </div>
+                        <div>
+                            <label className="label">Prénom</label>
+                            <input type="text" placeholder="Prénom" className="input" />
+                        </div>
+                    </div>
+                    <label className="label">Email</label>
+                    <label className="input validator w-132">
+                        <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g
+                                strokeLinejoin="round"
+                                strokeLinecap="round"
+                                strokeWidth="2.5"
+                                fill="none"
+                                stroke="currentColor"
+                            >
+                                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                            </g>
+                        </svg>
 
-            {/* Bouton d'inscription */}
-            <button
-                onClick={handleSignup}
-                disabled={loading}
-                style={{
-                    width: '100%',
-                    padding: '10px',
-                    marginBottom: '10px',
-                    backgroundColor: loading ? '#ccc' : '#007cba',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '4px',
-                    cursor: loading ? 'not-allowed' : 'pointer'
-                }}
-            >
-                {loading ? 'Inscription...' : 'S\'inscrire'}
-            </button>
+                        <input type="email" placeholder="mail@example.com" className="grow" required />
+                    </label>
+                    <div className="validator-hint hidden">Entrer une email valide</div>
 
+                    <div className="grid grid-cols-2 gap-5">
+                        <div>
+                            <label className="label">Mot de passe</label>
+                            <input type="text" placeholder="Mot de passe" className="input" />
+                        </div>
 
-
-            {/* Lien vers connexion */}
-            <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                <p>
-                    Déjà un compte ?
-                    <a href="/login" style={{ color: '#007cba', marginLeft: '5px' }}>
-                        Se connecter
-                    </a>
-                </p>
+                        <div>
+                            <label className="label">Confirmation</label>
+                            <input type="text" placeholder="Mot de passe" className="input" />
+                        </div>
+                    </div>
+                    <div className="flex justify-end mt-4">
+                        <button className="btn btn-primary">
+                            Suivant
+                            <icon.ArrowRight />
+                        </button>
+                    </div>
+                </fieldset>
             </div>
         </div>
     )
