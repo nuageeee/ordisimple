@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
       'animejs': 'animejs/lib/anime.es.js'
     };
     return config;
+  },
+  turbopack: {
+    
   }
 };
 

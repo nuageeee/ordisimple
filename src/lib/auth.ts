@@ -8,17 +8,19 @@ export const auth = betterAuth({
     // Default option
     database: createPool({
         host: "51.68.120.20",
-        port: 32768,
+        port: 32770,
         user: process.env.MYSQL_USER,
         password: process.env.MYSQL_PASSWD,
         database: "betterauth",
+        timezone: "Z"
     }),
     trustedOrigins: [
-        "http://51.68.120.20:3000"
+       // "http://51.68.120.20:3000",
+        "http://localhost:3000"
     ],
     emailAndPassword: {
         enabled: true,
-        minPasswordLength: 12
+        minPasswordLength: 6
     },
     // Plugins options
     plugins: [
@@ -30,10 +32,6 @@ export const auth = betterAuth({
             },
             defaultBanExpiresIn: 60 * 60 * 24
         }),
-        captcha({
-            provider: "hcaptcha",
-            secretKey: process.env.HCAPTCHA_KEY!,
-        }),
         organization(),
         nextCookies()
     ],
@@ -41,6 +39,9 @@ export const auth = betterAuth({
     user: {
         deleteUser: {
             enabled: true
+        },
+        additionalFields: {
+            
         }
     },
     // Dev options
@@ -53,5 +54,8 @@ export const auth = betterAuth({
     },
     telemetry: {
         enabled: true
+    },
+    advanced: {
+        disableOriginCheck: true
     }
 })

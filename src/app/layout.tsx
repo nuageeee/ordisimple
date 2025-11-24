@@ -3,7 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { Header } from "@/components/headers";
 import { auth } from "@/lib/auth";
+import Script from "next/script";
 import { headers } from "next/headers";
+import { Footer } from "@/components/footers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,10 +35,12 @@ export default async function RootLayout({
     <html lang="fr" data-theme="light">
       <head>
         <link rel="icon" href="/logo.svg" />
+        <Script src="http://51.68.120.20:3000/script.js" data-website-id="82c61f8f-b0f0-4b81-8e96-7e8237623f42"/>
       </head>
-      <body>
+      <body className="flex flex-col min-h-screen"> 
         <Header session={session} />
         {children}
+        <Footer />
       </body>
     </html>
   );
