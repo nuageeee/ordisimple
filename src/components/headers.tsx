@@ -4,8 +4,6 @@ import { authClient } from "@/lib/auth-client"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import * as icon from "lucide-react";
-import Image from "next/image"
-import Link from "next/link"
 
 export function Header({ session }: { session: any }) {
     const router = useRouter()
@@ -45,7 +43,7 @@ export function Header({ session }: { session: any }) {
                         <li><a>Item 3</a></li>
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl" href="/">Ordi'Simple</a>
+                <a className="btn btn-ghost text-xl" href="/">{"Ordi'Simple"}</a>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">

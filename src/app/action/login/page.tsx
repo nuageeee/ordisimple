@@ -150,9 +150,9 @@ export default function SigninPage() {
 
                             <div className="text-center">
                                 <p className="text-sm">
-                                    Vous n'avez pas de compte ?{' '}
+                                    {"Vous n'avez pas de compte ?"}{' '}
                                     <Link href="/action/signup" className="link link-primary font-semibold">
-                                        S'inscrire
+                                        {"S'inscrire"}
                                     </Link>
                                 </p>
                             </div>

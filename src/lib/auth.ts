@@ -1,6 +1,6 @@
 import { betterAuth } from "better-auth";
 import { nextCookies } from "better-auth/next-js";
-import { admin as adminPlugin, captcha, organization } from "better-auth/plugins";
+import { admin as adminPlugin, organization } from "better-auth/plugins";
 import { createPool } from "mysql2/promise";
 import { ac, admin, user } from "@/lib/permissions"
 

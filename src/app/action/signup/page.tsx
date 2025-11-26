@@ -197,9 +197,9 @@ export default function SignupPage() {
                                             disabled={loading}
                                         />
                                         <span className="label-text">
-                                            J'accepte les{' '}
+                                            {"J'accepte les"}{' '}
                                             <Link href="/terms" className="link link-primary" target="_blank">
-                                                conditions générales d'utilisation
+                                                {"conditions générales d'utilisation"}
                                             </Link>
                                         </span>
                                     </label>
@@ -220,7 +220,7 @@ export default function SignupPage() {
                                     ) : (
                                         <>
                                             <icon.UserPlus className="w-4 h-4" />
-                                            S'inscrire
+                                            {"S'inscrire"}
                                         </>
                                     )}
                                 </button>

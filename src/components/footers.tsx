@@ -23,7 +23,7 @@ export function Footer() {
                 </div>
             </nav>
             <aside>
-                <p>Copyright © {new Date().getFullYear()} - Tout droit réservé par Ordi'Simple</p>
+                <p>{"Copyright ©"} {new Date().getFullYear()} {"- Tout droit réservé par Ordi'Simple"}</p>
             </aside>
         </footer>
     )

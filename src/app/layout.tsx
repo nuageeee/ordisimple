@@ -7,7 +7,7 @@ import Script from "next/script";
 import { headers } from "next/headers";
 import { Footer } from "@/components/footers";
 
-const geistSans = Geist({
+/* const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
@@ -15,7 +15,7 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-});
+}); */
 
 export const metadata: Metadata = {
   title: "Create Next App",

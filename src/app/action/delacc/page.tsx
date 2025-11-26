@@ -1,6 +1,5 @@
 import { DelAccount } from "@/components/del_compo";
 import { auth } from "@/lib/auth";
-import { authClient } from "@/lib/auth-client";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
