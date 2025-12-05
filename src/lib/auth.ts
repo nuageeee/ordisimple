@@ -1,18 +1,21 @@
 import { betterAuth } from "better-auth";
 import { nextCookies } from "better-auth/next-js";
 import { admin as adminPlugin, organization } from "better-auth/plugins";
-import { createPool } from "mysql2/promise";
+import {Pool} from "pg"
 import { ac, admin, user } from "@/lib/permissions"
 
 export const auth = betterAuth({
     // Default option
-    database: createPool({
+/*     database: createPool({
         host: "51.68.120.20",
-        port: 32770,
+        port: 60010,
         user: process.env.MYSQL_USER,
         password: process.env.MYSQL_PASSWD,
         database: "betterauth",
         timezone: "Z"
+    }), */
+    database: new Pool({
+        connectionString: "postgres://betterauth:Better_%24%21R%23PyH72@51.77.193.180:5432/betterauth"
     }),
     trustedOrigins: [
        // "http://51.68.120.20:3000",
