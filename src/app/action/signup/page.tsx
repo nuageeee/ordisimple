@@ -153,6 +153,7 @@ export default function SignupPage() {
                                             <input
                                                 type="password"
                                                 name="password"
+                                                autoComplete="new-password"
                                                 placeholder="Mot de passe"
                                                 className="grow"
                                                 value={formData.password}
@@ -173,6 +174,7 @@ export default function SignupPage() {
                                                 type="password"
                                                 name="confirmPassword"
                                                 placeholder="Confirmer"
+                                                autoComplete="new-password"
                                                 className="grow"
                                                 value={formData.confirmPassword}
                                                 onChange={handleInputChange}
