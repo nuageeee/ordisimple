@@ -1,8 +1,65 @@
 'use client';
 
+import { useEffect, useState } from "react";
 import FloatingBubbles from "@/components/FloatingBubbles";
 
 export default function Home() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    if (error) {
+      const t = setTimeout(() => setError(null), 4000);
+      return () => clearTimeout(t);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (success) {
+      const t = setTimeout(() => setSuccess(false), 3000);
+      return () => clearTimeout(t);
+    }
+  }, [success]);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setSuccess(false);
+
+    if (!name || !email || !phone || !message) {
+      setError("Veuillez remplir tous les champs.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const res = await fetch("/api/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone, message }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data?.success) {
+        setError(data?.error || "Une erreur est survenue.");
+        return;
+      }
+      setSuccess(true);
+      setName("");
+      setEmail("");
+      setPhone("");
+      setMessage("");
+    } catch (err) {
+      setError("Impossible d'envoyer le message.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="relative">
       <div className="fixed inset-0 pointer-events-none -z-10">
@@ -147,26 +204,80 @@ export default function Home() {
             <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
               <div className="card-body">
                 <h2 className="card-title mb-4">Nous Contacter</h2>
-                <fieldset className="fieldset">
+                <form className="fieldset" onSubmit={handleSubmit}>
                   <label className="label">Nom</label>
-                  <input type="text" className="input" placeholder="Votre nom" />
+                  <input
+                    type="text"
+                    className="input"
+                    placeholder="Votre nom"
+                    name="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
                   <label className="label">Email</label>
-                  <input type="email" className="input" placeholder="votre@email.com" />
+                  <input
+                    type="email"
+                    className="input"
+                    placeholder="votre@email.com"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
                   <label className="label">Téléphone</label>
-                  <input type="tel" className="input" placeholder="+33 6 XX XX XX XX" />
+                  <input
+                    type="tel"
+                    className="input"
+                    placeholder="+33 6 XX XX XX XX"
+                    name="phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                  />
                   <label className="label">Message</label>
-                  <textarea className="textarea" placeholder="Décrivez votre problème..."></textarea>
-                  <button className="btn btn-primary mt-4 w-full">Envoyer</button>
-                </fieldset>
+                  <textarea
+                    className="textarea"
+                    placeholder="Décrivez votre problème..."
+                    name="message"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    rows={4}
+                    required
+                  />
+
+                  <button
+                    className="btn btn-primary mt-4 w-full"
+                    type="submit"
+                    disabled={loading}
+                  >
+                    {loading ? "Envoi..." : "Envoyer"}
+                  </button>
+                </form>
               </div>
             </div>
+            {/* Toast popups */}
+            {(error || success) && (
+              <div className="toast toast-top toast-end z-50" aria-live="assertive">
+                {error && (
+                  <div className="alert alert-error">
+                    <span>{error}</span>
+                  </div>
+                )}
+                {success && (
+                  <div className="alert alert-success">
+                    <span>Message envoyé avec succès.</span>
+                  </div>
+                )}
+              </div>
+            )}
             <div className="text-center lg:text-left">
               <h1 className="text-5xl font-bold mb-6">Contactez-nous</h1>
               <p className="py-6 text-lg">
                 Vous avez un problème informatique? Une question sur nos services? Notre équipe est à votre écoute pour vous aider rapidement.
               </p>
               <div className="space-y-4">
-                <p><strong>📞 Téléphone:</strong> +33 X XX XX XX XX</p>
+                <p><strong>📞 Téléphone:</strong> +33 6 58 69 93 51</p>
                 <p><strong>📧 Email:</strong> contact@ordisimple.fr</p>
               </div>
             </div>

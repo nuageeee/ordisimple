@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
-    "start": "next start",
+    "start": "next start -H 0.0.0.0 -p 3000",
     "lint": "eslint",
     "generate": "npx @better-auth/cli generate",
     "migrate": "npx @better-auth/cli migrate"
@@ -20,6 +20,7 @@
     "motion": "^12.23.24",
     "mysql2": "^3.14.5",
     "next": "^15.5.7",
+    "node-mailjet": "^6.0.11",
     "pg": "^8.16.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
