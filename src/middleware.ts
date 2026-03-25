@@ -1,4 +1,3 @@
-// middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
@@ -16,7 +15,6 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// Appliquer le middleware à toutes les routes sauf _next et API
 export const config = {
   matcher: ["/((?!_next|api).*)"],
 };

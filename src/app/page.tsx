@@ -277,8 +277,8 @@ export default function Home() {
                 Vous avez un problème informatique? Une question sur nos services? Notre équipe est à votre écoute pour vous aider rapidement.
               </p>
               <div className="space-y-4">
-                <p><strong>📞 Téléphone:</strong> +33 6 58 69 93 51</p>
-                <p><strong>📧 Email:</strong> contact@ordisimple.fr</p>
+                <p><strong>📞 Téléphone:</strong> +336 88 99 29 96</p>
+                <p><strong>📧 Email:</strong> contact@ordisimple.com</p>
               </div>
             </div>
           </div>
