@@ -7,6 +7,11 @@ export function middleware(request: NextRequest) {
   // Seule page accessible
   const allowedPath = "/";
 
+  if (process.env.NODE_ENV === "development") {
+    return NextResponse.next();
+  }
+
+
   if (url.pathname !== allowedPath) {
     url.pathname = allowedPath;
     return NextResponse.redirect(url);
