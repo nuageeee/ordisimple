@@ -18,7 +18,7 @@ export const auth = betterAuth({
         connectionString: "postgres://betterauth:Better_%24%21R%23PyH72@51.77.193.180:5432/betterauth"
     }),
     trustedOrigins: [
-       // "http://51.68.120.20:3000",
+        "http://51.68.120.20:3002",
         "http://localhost:3000"
     ],
     emailAndPassword: {
